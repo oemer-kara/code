@@ -400,7 +400,7 @@
     {
         "key": "enter",
         "command": "workbench.action.closeSidebar",
-        "when": "vim.mode == 'Normal' && sideBarFocus && references-view.tree.visible"
+        "when": "vim.mode == 'Normal' && sideBarFocus && references-view.tree.visible && !explorerViewletFocus"
     },
 
     // References panel navigation (Ctrl+j/k)
