@@ -1,0 +1,25 @@
+{
+    "workbench.colorTheme": "Gruber Darker",
+    "vim.smartRelativeLine": true,
+    "editor.fontFamily": "Iosevka Nerd Font",
+    "editor.minimap.enabled": false,
+    "breadcrumbs.enabled": false,
+    "editor.stickyScroll.enabled": false,
+    "editor.renderWhitespace": "none",
+    "editor.renderControlCharacters": false,
+    "workbench.activityBar.location": "top",
+    "search.searchOnType": true,
+    "editor.mouseWheelZoom": true,
+    "extensions.ignoreRecommendations": true,
+
+    "run-command.commands": [
+        {
+            "command": "tclsh tcl_learning.tcl"
+        }
+    ],
+
+    "terminal.integrated.defaultProfile.windows": "PowerShell"
+}
+
+
+

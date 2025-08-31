@@ -1,0 +1,685 @@
+[
+    //=======================================================
+    // Tab and Editor Navigation
+    //=======================================================
+    
+    // Tab navigation (Shift+, and Shift+.)
+    { 
+        "key": "alt+,",
+        "command": "workbench.action.previousEditor",
+    },
+    {
+        "key": "alt+.",
+        "command": "workbench.action.nextEditor",
+    }, 
+
+    // Navigate between editor groups (Ctrl+h/j/k/l)
+    {
+    "key": "ctrl+h",
+    "command": "workbench.action.navigateLeft"
+    },
+    {
+    "key": "ctrl+l",
+    "command": "workbench.action.navigateRight"
+    },
+    {
+    "key": "ctrl+k",
+    "command": "workbench.action.navigateUp"
+    },
+    {
+    "key": "ctrl+j",
+    "command": "workbench.action.navigateDown"
+    },
+
+    // Switch between panel views (Shift+, / Shift+.) when panel focused (Terminal Panel)
+    {
+        "key": "alt+,",
+        "command": "workbench.action.previousPanelView",
+        "when": "panelFocus"
+    },
+    {
+        "key": "alt+.", 
+        "command": "workbench.action.nextPanelView",
+        "when": "panelFocus"
+    },
+    
+    //=======================================================
+    // Explorer
+    //=======================================================
+    // When terminal is in focus and explorer is closed, toggle explorer(open).
+    {
+        "key": "ctrl+e",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.navigateUp",
+                "workbench.view.explorer",
+            ]
+        },
+        "when": "terminalFocus && !sideBarVisible"
+    },
+    // When terminal is in focus and explorer is already opened, toggle explorer(close).
+    {
+        "key": "ctrl+e",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.navigateUp",
+                "workbench.action.closeSidebar",
+            ]
+        },
+        "when": "terminalFocus && sideBarVisible"
+    },
+    // When we are not in terminal, in anywhere, toggle explorer(open).
+    {
+        "key": "ctrl+e",
+        "command": "workbench.view.explorer",
+        "when": "!terminalFocus"
+    },
+    // When we are not in terminal, and explorer is already opened. toggle explorer(close).
+    {
+        "key": "ctrl+e",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "!terminalFocus && sideBarVisible && !searchViewletVisible"
+    },
+
+    // When we are on the explorer and would like to select files, and folders.
+    {
+        "key": "ctrl+j",
+        "command": "list.focusDown",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "list.focusUp",
+        "when": "explorerViewletVisible && filesExplorerFocus"
+    },
+
+    // Add a file
+    {
+        "key": "a",
+        "command": "explorer.newFile",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    // Add a folder
+    {
+        "key": "f",
+        "command": "explorer.newFolder", 
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    // Rename
+    {
+        "key": "r",
+        "command": "renameFile",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    // Delete
+    {
+        "key": "d",
+        "command": "deleteFile",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    // Cut
+    {
+        "key": "x",
+        "command": "filesExplorer.cut",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    // Yank
+    {
+        "key": "y",
+        "command": "filesExplorer.copy",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    // Paste
+    {
+        "key": "p",
+        "command": "filesExplorer.paste",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    // Open vertically
+    {
+        "key": "v",
+        "command": "explorer.openToSide",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+    // Open horizontally
+    {
+        "key": "h",
+        "command": "workbench.action.splitEditorDown",
+        "when": "explorerViewletFocus && !inputFocus"
+    },
+
+    //=======================================================
+    // TERMINAL ACTIONS
+    //=======================================================
+    
+    // Terminal navigation (Ctrl+k/j from terminal)
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.navigateUp",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.terminal.focus",
+        "when": "view.terminal.visible && !explorerViewletFocus"
+    },
+    
+    // Toggle terminal (Ctrl+\)
+    {
+        "key": "ctrl+\\",
+        "command": "workbench.action.togglePanel",
+    },
+        
+    //=======================================================
+    // Search Viewlet
+    //=======================================================
+
+    // When search bar is closed and terminal is not in focus, toggle search bar (open)
+    {
+        "key": "ctrl+f",
+        "command": "workbench.action.replaceInFiles",
+        "when": "!searchViewletVisible && !terminalFocus"
+    },
+    // When search bat is opened and terminal is not in focus, toggle search bar (close)
+    {
+        "key": "ctrl+f",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.closeSidebar",
+                "extension.vim_escape"
+            ]
+        },
+        "when": "searchViewletVisible && !terminalFocus"
+    },
+    // When anything is selected from the search bar, open the result, close the sidebar, and change vim visual to vim normal
+    {
+        "key": "enter",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "search.action.openResult",
+                "workbench.action.closeSidebar",
+                "extension.vim_escape"
+            ]
+        },
+        "when": "searchViewletFocus && searchViewletVisible"
+    },
+
+    //When in terminal focus, and search bar is closed, toggle search bar (open)
+    {
+        "key": "ctrl+t",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.navigateUp",
+                "workbench.action.replaceInFiles",
+                "workbench.action.terminal.focus"
+            ]
+        },
+        "when": "terminalFocus && !searchViewletVisible"
+    },
+
+    // When in terminal focus, and search bar is already opened, toggle search bar (closed)
+    {
+        "key": "ctrl+t",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.navigateUp",
+                "workbench.action.closeSidebar",
+                "workbench.action.terminal.focus"
+            ]
+        },
+        "when": "terminalFocus && searchViewletVisible"
+    }, 
+
+    // Search results navigation (Ctrl+j/k)
+    {
+        "key": "ctrl+j",
+        "command": "runCommands",
+                "args": {
+                    "commands": [
+                        "search.action.focusSearchList",
+                        "list.focusDown",
+                    ]
+                },
+
+        "when": "searchViewletFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "runCommands",
+                "args": {
+                    "commands": [
+                        "search.action.focusSearchList",
+                        "list.focusUp",
+                    ]
+                },
+        "when": "searchViewletFocus"
+    },
+
+
+    //=======================================================
+    // Quick Open
+    //=======================================================
+
+    // Quick open navigation (Ctrl+f)
+    {
+        "key": "ctrl+t",
+        "command": "workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "workbench.action.closeQuickOpen",
+        "when" : "inQuickInput"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "quickInput.next",
+        "when":  "inQuickInput"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "quickInput.previous",
+        "when":  "inQuickInput"
+    },
+    // When in quick open, open the file vertically.
+    {
+        "key": "ctrl+v",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.acceptSelectedQuickOpenItem",
+                "workbench.action.moveEditorToRightGroup"
+            ]
+        },
+        "when": "inQuickOpen"
+    },
+    // When in quick open, open the file horizontally.
+    {
+        "key": "ctrl+h",
+        "command": "runCommands", 
+        "args": {
+            "commands": [
+                "workbench.action.acceptSelectedQuickOpenItem",
+                "workbench.action.moveEditorToBelowGroup"
+            ]
+        },
+        "when": "inQuickOpen"
+    },
+    
+    //=======================================================
+    // Search
+    //=======================================================
+
+    // Replace with selected text (Space s i in visual mode)
+    {
+        "key": "space s i",
+        "command": "workbench.action.replaceInFiles",
+        "when": "(searchViewletFocus || searchViewletVisible) && !terminalFocus && !editorFocus && !inputFocus"
+    },
+    {
+        "key": "r",
+        "command": "search.action.replace",
+        "when": "replaceActive && searchViewletVisible && searchViewletFocus"
+    },
+    {
+        "key": "shift+R",
+        "command": "search.action.replaceAllInFolder",
+        "when": "replaceActive && searchViewletVisible && searchViewletFocus"
+    },
+
+    //=======================================================
+    // LSP & CODE INTELLIGENCE
+    //=======================================================
+   
+    // Go to definition (g d)
+    {
+    "key": "g d",
+    "command": "editor.action.revealDefinition",
+    "when": "vim.mode == 'Normal' && editorHasDefinitionProvider && editorTextFocus"
+    },
+    // Go to declaration (g D)
+    {
+        "key": "g shift+D",
+        "command": "editor.action.revealDeclaration", 
+        "when": "vim.mode == 'Normal' && editorHasDeclarationProvider && editorTextFocus"
+    },
+    // Show hover (Shift+k)
+    {
+        "key": "shift+k",
+        "command": "editor.action.showHover",
+        "when": "vim.mode == 'Normal' && editorTextFocus"
+    },
+    // Rename symbol (Space r n)
+    {
+        "key": "space r n",
+        "command": "editor.action.rename",
+        "when": "vim.mode == 'Normal' && editorHasRenameProvider && editorTextFocus && !editorReadonly && !inputFocus"
+    },
+
+    // Find references (Space f r)
+    {
+        "key": "space f r",
+        "command": "references-view.findReferences",
+        "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !inputFocus"
+    },
+
+    // Suggestions
+    {
+        "key": "enter",
+        "command": "acceptSelectedSuggestion",
+        "when": "suggestWidgetVisible && suggestionMakesTextEdit && textInputFocus"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetVisible && textInputFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetVisible && textInputFocus"
+    },
+
+    //=======================================================
+    // References
+    //=======================================================
+
+    // Open previously searched references
+    {
+        "key": "space o r",
+        "command": "references-view.tree.open",
+        "when": "vim.mode == 'Normal' && !terminalFocus"
+    },
+
+    // When pressed enter, close the sidebar.
+    {
+        "key": "enter",
+        "command": "workbench.action.closeSidebar",
+        "when": "vim.mode == 'Normal' && sideBarFocus && references-view.tree.visible"
+    },
+
+    // References panel navigation (Ctrl+j/k)
+    {
+        "key": "ctrl+j",
+        "command": "references-view.next",
+        "when": "sideBarFocus && view.references-view.tree.visible"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "references-view.prev",
+        "when": "sideBarFocus && view.references-view.tree.visible"
+    },
+
+    //=======================================================
+    // REFACTOR PREVIEW
+    //=======================================================
+    
+    // Toggle refactor preview item (Enter)
+    {
+        "key": "enter",
+        "command": "refactorPreview.toggleCheckedState",
+        "when": "focusedView == 'refactorPreview'"
+    },
+    // Apply refactor (Ctrl+Enter)
+    {
+        "key": "ctrl+enter",
+        "command": "refactorPreview.apply",
+        "when": "focusedView == 'refactorPreview'"
+    },
+    // Discard refactor (Ctrl+q)
+    {
+        "key": "ctrl+q",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "refactorPreview.discard",
+                "workbench.action.focusLastEditorGroup"
+            ]
+        },
+        "when": "focusedView == 'refactorPreview'"
+    },
+
+    //=======================================================
+    // RESIZE ACTIONS
+    //=======================================================
+    
+    // Panel resize
+    {
+        "key": "ctrl+up",
+        "command": "workbench.action.terminal.resizePaneUp",
+        "when": "panelFocus"
+    },
+    {
+        "key": "ctrl+down",
+        "command": "workbench.action.terminal.resizePaneDown",
+        "when": "panelFocus"
+    },
+
+    // Editor resize 
+    {
+        "key": "ctrl+left",
+        "command": "workbench.action.increaseViewSize",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+right",
+        "command": "workbench.action.decreaseViewSize",
+        "when": "editorFocus"
+    },
+
+    // Sidebar resize
+    {
+        "key": "ctrl+left",
+        "command": "workbench.action.decreaseViewSize",
+        "when": "sideBarFocus"
+    },
+    {
+        "key": "ctrl+right",
+        "command": "workbench.action.increaseViewSize",
+        "when": "sideBarFocus"
+    },
+
+    //=======================================================
+    // CLOSE & EXIT ACTIONS (All Ctrl+q)
+    //=======================================================
+    
+    // Close bottom panel
+    {
+        "key": "ctrl+q",
+        "command": "workbench.action.togglePanel",
+        "when": "terminalFocus"
+    },
+    
+    // Close Buffers
+    {
+        "key": "ctrl+q",
+        "command": "workbench.action.closeActiveEditor",
+        "when" : "!terminalFocus && !sideBarFocus"
+    },
+
+    // Close/hide sidebar
+    {
+        "key": "ctrl+q",
+        "command": "workbench.action.closeSidebar",
+        "when": "sideBarFocus"
+    },
+
+    //=======================================================
+    // FONT AND UI SIZE
+    //=======================================================
+
+    //Editor font size
+    {
+        "key": "ctrl+=",
+        "command": "editor.action.fontZoomIn",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "editor.action.fontZoomOut",
+        "when": "editorTextFocus"
+    },
+
+    // UI zoom
+    {
+        "key": "ctrl+alt+=",
+        "command": "workbench.action.zoomIn"
+    },
+    {
+        "key": "ctrl+alt+-",
+        "command": "workbench.action.zoomOut"
+    },
+    //=======================================================
+    // DISABLED/REMOVED SHORTCUTS
+    //=======================================================
+    
+    // Disabled default VS Code shortcuts
+    {
+        "key": "ctrl+k ctrl+q",
+        "command": "-workbench.action.navigateToLastEditLocation"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "-workbench.action.quickOpenView"
+    },
+    {
+        "key": "ctrl+shift+q",
+        "command": "-workbench.action.quickOpenNavigatePreviousInViewPicker",
+        "when": "inQuickOpen && inViewsPicker"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "-workbench.action.quickOpenNavigateNextInViewPicker",
+        "when": "inQuickOpen && inViewsPicker"
+    },
+    {
+        "key": "ctrl+q",
+        "command": "-extension.vim_winCtrlQ",
+        "when": "editorTextFocus && vim.active && vim.use<C-q> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-workbench.action.showAllSymbols"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-extension.vim_ctrl+t",
+        "when": "editorTextFocus && vim.active && vim.use<C-t> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-editor.action.toggleScreenReaderAccessibilityMode",
+        "when": "accessibilityHelpIsShown"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-workbench.action.quickOpen"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-extension.vim_ctrl+e",
+        "when": "editorTextFocus && vim.active && vim.use<C-e> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-workbench.action.quickOpenNavigateNextInFilePicker",
+        "when": "inFilesPicker && inQuickOpen"
+    },
+    {
+        "key": "ctrl+k ctrl+\\",
+        "command": "-workbench.action.splitEditorUp"
+    },
+    {
+        "key": "ctrl+k ctrl+\\",
+        "command": "-workbench.action.splitEditorRight"
+    },
+    {
+        "key": "ctrl+k ctrl+\\",
+        "command": "-workbench.action.splitEditorOrthogonal"
+    },
+    {
+        "key": "ctrl+k ctrl+\\",
+        "command": "-workbench.action.splitEditorLeft"
+    },
+    {
+        "key": "ctrl+k ctrl+shift+\\",
+        "command": "-workbench.action.splitEditorInGroup",
+        "when": "activeEditorCanSplitInGroup"
+    },
+    {
+        "key": "ctrl+k ctrl+\\",
+        "command": "-workbench.action.splitEditorDown"
+    },
+    {
+        "key": "ctrl+\\",
+        "command": "-workbench.action.splitEditor"
+    },
+    {
+        "key": "ctrl+k ctrl+shift+\\",
+        "command": "-workbench.action.joinEditorInGroup",
+        "when": "sideBySideEditorActive"
+    },
+    {
+        "key": "ctrl+shift+\\",
+        "command": "-workbench.action.terminal.focusTabs",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus"
+    },
+    {
+        "key": "ctrl+k ctrl+shift+\\",
+        "command": "-notebook.cell.split",
+        "when": "editorTextFocus && notebookCellEditable && notebookEditable && notebookEditorFocused"
+    },
+    {
+        "key": "ctrl+shift+\\",
+        "command": "-editor.action.jumpToBracket",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+1",
+        "command": "-search.action.replaceAllInFolder",
+        "when": "folderMatchFocus && isEditableItem && replaceActive && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+shift+1",
+        "command": "-search.action.replaceAllInFile",
+        "when": "fileMatchFocus && isEditableItem && replaceActive && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+shift+1",
+        "command": "-search.action.replace",
+        "when": "isEditableItem && matchFocus && replaceActive && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "-search.action.replaceAllInFile",
+        "when": "fileMatchFocus && isEditableItem && replaceActive && searchViewletVisible"
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "-search.action.replaceAllInFolder",
+        "when": "folderMatchFocus && isEditableItem && replaceActive && searchViewletVisible"
+    },
+    {
+        "key": "k",
+        "command": "-list.focusUp",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "j",
+        "command": "-list.focusDown",
+        "when": "listFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "run-command.run-command"
+    },
+    {
+        "key": "ctrl+shift+t",
+        "command": "-run-command.run-command"
+    },
+]
