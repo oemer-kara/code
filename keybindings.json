@@ -2,16 +2,16 @@
     //=======================================================
     // Tab and Editor Navigation
     //=======================================================
-    
+
     // Tab navigation (Shift+, and Shift+.)
-    { 
+    {
         "key": "alt+,",
         "command": "workbench.action.previousEditor",
     },
     {
         "key": "alt+.",
         "command": "workbench.action.nextEditor",
-    }, 
+    },
 
     // Navigate between editor groups (Ctrl+h/j/k/l)
     {
@@ -38,11 +38,11 @@
         "when": "panelFocus"
     },
     {
-        "key": "alt+.", 
+        "key": "alt+.",
         "command": "workbench.action.nextPanelView",
         "when": "panelFocus"
     },
-    
+
     //=======================================================
     // Explorer
     //=======================================================
@@ -104,7 +104,7 @@
     // Add a folder
     {
         "key": "f",
-        "command": "explorer.newFolder", 
+        "command": "explorer.newFolder",
         "when": "explorerViewletFocus && !inputFocus"
     },
     // Rename
@@ -153,7 +153,7 @@
     //=======================================================
     // TERMINAL ACTIONS
     //=======================================================
-    
+
     // Terminal navigation (Ctrl+k/j from terminal)
     {
         "key": "ctrl+k",
@@ -165,13 +165,13 @@
         "command": "workbench.action.terminal.focus",
         "when": "view.terminal.visible && !explorerViewletFocus"
     },
-    
+
     // Toggle terminal (Ctrl+\)
     {
         "key": "ctrl+\\",
         "command": "workbench.action.togglePanel",
     },
-        
+
     //=======================================================
     // Search Viewlet
     //=======================================================
@@ -234,7 +234,7 @@
             ]
         },
         "when": "terminalFocus && searchViewletVisible"
-    }, 
+    },
 
     // Search results navigation (Ctrl+j/k)
     {
@@ -301,7 +301,7 @@
     // When in quick open, open the file horizontally.
     {
         "key": "ctrl+h",
-        "command": "runCommands", 
+        "command": "runCommands",
         "args": {
             "commands": [
                 "workbench.action.acceptSelectedQuickOpenItem",
@@ -310,7 +310,7 @@
         },
         "when": "inQuickOpen"
     },
-    
+
     //=======================================================
     // Search
     //=======================================================
@@ -319,7 +319,7 @@
     {
         "key": "space s i",
         "command": "workbench.action.replaceInFiles",
-        "when": "(searchViewletFocus || searchViewletVisible) && !terminalFocus && !editorFocus && !inputFocus"
+        "when": "(searchViewletFocus || searchViewletVisible) && !terminalFocus && !editorFocus && !inputFocus && !inQuickInput"
     },
     {
         "key": "r",
@@ -335,7 +335,7 @@
     //=======================================================
     // LSP & CODE INTELLIGENCE
     //=======================================================
-   
+
     // Go to definition (g d)
     {
     "key": "g d",
@@ -345,7 +345,7 @@
     // Go to declaration (g D)
     {
         "key": "g shift+D",
-        "command": "editor.action.revealDeclaration", 
+        "command": "editor.action.revealDeclaration",
         "when": "vim.mode == 'Normal' && editorHasDeclarationProvider && editorTextFocus"
     },
     // Show hover (Shift+k)
@@ -358,14 +358,14 @@
     {
         "key": "space r n",
         "command": "editor.action.rename",
-        "when": "vim.mode == 'Normal' && editorHasRenameProvider && editorTextFocus && !editorReadonly && !inputFocus"
+        "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && inputFocus && !inQuickInput && !terminalFocus"
     },
 
     // Find references (Space f r)
     {
         "key": "space f r",
         "command": "references-view.findReferences",
-        "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && !inputFocus"
+        "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor && inputFocus && !inQuickInput && !terminalFocus"
     },
 
     // Suggestions
@@ -393,7 +393,7 @@
     {
         "key": "space o r",
         "command": "references-view.tree.open",
-        "when": "vim.mode == 'Normal' && !terminalFocus"
+        "when": "vim.mode == 'Normal' && !terminalFocus && !inQuickInput"
     },
 
     // When pressed enter, close the sidebar.
@@ -418,36 +418,47 @@
     //=======================================================
     // REFACTOR PREVIEW
     //=======================================================
-    
-    // Toggle refactor preview item (Enter)
-    {
-        "key": "enter",
-        "command": "refactorPreview.toggleCheckedState",
-        "when": "focusedView == 'refactorPreview'"
-    },
-    // Apply refactor (Ctrl+Enter)
-    {
-        "key": "ctrl+enter",
-        "command": "refactorPreview.apply",
-        "when": "focusedView == 'refactorPreview'"
-    },
-    // Discard refactor (Ctrl+q)
-    {
-        "key": "ctrl+q",
-        "command": "runCommands",
-        "args": {
-            "commands": [
-                "refactorPreview.discard",
-                "workbench.action.focusLastEditorGroup"
-            ]
-        },
-        "when": "focusedView == 'refactorPreview'"
-    },
+    // //Move to the refactor preview
+    // {
+    //     "key": "ctrl+j",
+    //     "command" : "workbench.panel.repl.view.focus",
+    //     "when" : "editorFocus && view.refactorPreview.visible"
+    // },
+    // // //Move to the refactor preview
+    // // {
+    // //     "key": "j",
+    // //     "when" : "panelVisible && focusedView == 'refactorPreview'"
+    // // },
+
+    // // Toggle refactor preview item (Enter)
+    // {
+    //     "key": "enter",
+    //     "command": "refactorPreview.toggleCheckedState",
+    //     "when": "focusedView == 'refactorPreview'"
+    // },
+    // // Apply refactor (Ctrl+Enter)
+    // {
+    //     "key": "ctrl+enter",
+    //     "command": "refactorPreview.apply",
+    //     "when": "focusedView == 'refactorPreview'"
+    // },
+    // // Discard refactor (Ctrl+q)
+    // {
+    //     "key": "ctrl+q",
+    //     "command": "runCommands",
+    //     "args": {
+    //         "commands": [
+    //             "refactorPreview.discard",
+    //             "workbench.action.focusLastEditorGroup"
+    //         ]
+    //     },
+    //     "when": "focusedView == 'refactorPreview'"
+    // },
 
     //=======================================================
     // RESIZE ACTIONS
     //=======================================================
-    
+
     // Panel resize
     {
         "key": "ctrl+up",
@@ -460,7 +471,7 @@
         "when": "panelFocus"
     },
 
-    // Editor resize 
+    // Editor resize
     {
         "key": "ctrl+left",
         "command": "workbench.action.increaseViewSize",
@@ -487,14 +498,14 @@
     //=======================================================
     // CLOSE & EXIT ACTIONS (All Ctrl+q)
     //=======================================================
-    
+
     // Close bottom panel
     {
         "key": "ctrl+q",
         "command": "workbench.action.togglePanel",
         "when": "terminalFocus"
     },
-    
+
     // Close Buffers
     {
         "key": "ctrl+q",
@@ -534,10 +545,19 @@
         "key": "ctrl+alt+-",
         "command": "workbench.action.zoomOut"
     },
+
+    //=======================================================
+    // Buffers
+    //=======================================================
+    {
+        "key": "ctrl+x",
+        "command": "workbench.action.showAllEditors"
+    },
+
     //=======================================================
     // DISABLED/REMOVED SHORTCUTS
     //=======================================================
-    
+
     // Disabled default VS Code shortcuts
     {
         "key": "ctrl+k ctrl+q",
